@@ -108,6 +108,7 @@ export default function App() {
               defaultSize={defaultSize.INTEGRATED_SEARCH}
               order={1}
               collapsible
+              onCollapse={(collapsed) => setToggleIntegratedSearch(collapsed)}
             >
               <div className={styles.PanelContent}>INTEGRATED_SEARCH</div>
             </Panel>
@@ -123,6 +124,7 @@ export default function App() {
               defaultSize={defaultSize.TIME_FILTER}
               order={1}
               collapsible
+              onCollapse={(collapsed) => setToggleTime(collapsed)}
             >
               <div className={styles.PanelContent}>TIME_FILTER</div>
             </Panel>
