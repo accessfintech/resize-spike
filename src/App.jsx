@@ -43,6 +43,9 @@ export default function App() {
     MAIN_GRID: undefined,
   });
 
+  const [toggleIntegratedSearch, setToggleIntegratedSearch] = useState(true);
+  const [toggleTime, setToggleTime] = useState(true);
+
   useLayoutEffect(() => {
     const panelGroup = document.querySelector('[data-panel-group-id="group"]');
     const resizeHandles = document.querySelectorAll(
@@ -81,39 +84,63 @@ export default function App() {
   }, []);
 
   return (
-    <PanelGroup direction="horizontal" id="group">
-      <Panel
-        className={styles.Panel}
-        minSize={minSize.INTEGRATED_SEARCH}
-        defaultSize={defaultSize.INTEGRATED_SEARCH}
-        order={1}
-        collapsible
+    <>
+      <button
+        className={styles.Button}
+        onClick={() => setToggleIntegratedSearch(!toggleIntegratedSearch)}
       >
-        <div className={styles.PanelContent}>INTEGRATED_SEARCH</div>
-      </Panel>
-      <ResizeHandle id="horizontal-group-integrated-search" />
+        {toggleIntegratedSearch ? "hide" : "show"} INTEGRATED_SEARCH
+      </button>
 
-      <Panel
-        className={styles.Panel}
-        minSize={minSize.TIME_FILTER}
-        defaultSize={defaultSize.TIME_FILTER}
-        order={1}
-        collapsible
+      <button
+        className={styles.Button}
+        onClick={() => setToggleTime(!toggleTime)}
       >
-        <div className={styles.PanelContent}>TIME_FILTER</div>
-      </Panel>
-      <ResizeHandle id="horizontal-group-time" />
+        {toggleTime ? "hide" : "show"} TIME_FILTER
+      </button>
 
-      <Panel
-        className={styles.Panel}
-        order={2}
-        minSize={minSize.MAIN}
-        defaultSize={defaultSize.MAIN}
-        style={{ overflow: "auto" }}
-      >
-        <VerticalGroup />
-      </Panel>
-    </PanelGroup>
+      <PanelGroup direction="horizontal" id="group">
+        {toggleIntegratedSearch && (
+          <>
+            <Panel
+              className={styles.Panel}
+              minSize={minSize.INTEGRATED_SEARCH}
+              defaultSize={defaultSize.INTEGRATED_SEARCH}
+              order={1}
+              collapsible
+            >
+              <div className={styles.PanelContent}>INTEGRATED_SEARCH</div>
+            </Panel>
+            <ResizeHandle id="horizontal-group-integrated-search" />
+          </>
+        )}
+
+        {toggleTime && (
+          <>
+            <Panel
+              className={styles.Panel}
+              minSize={minSize.TIME_FILTER}
+              defaultSize={defaultSize.TIME_FILTER}
+              order={1}
+              collapsible
+            >
+              <div className={styles.PanelContent}>TIME_FILTER</div>
+            </Panel>
+            <ResizeHandle id="horizontal-group-time" />
+          </>
+        )}
+
+        <Panel
+          className={styles.Panel}
+          order={2}
+          minSize={minSize.MAIN}
+          defaultSize={defaultSize.MAIN}
+          style={{ overflow: "auto" }}
+        >
+          <VerticalGroup />
+        </Panel>
+      </PanelGroup>
+    </>
   );
 }
 
